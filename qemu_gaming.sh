@@ -12,34 +12,7 @@
 # 046d:c332 - proteus mouse
   # -usb -usbdevice host:046d:c332 \
 
-# echo "Exporting PulseAudio driver ..."
-
-### UNCOMMENT to enable pulse
-# export QEMU_PA_SAMPLES=6144
-# export QEMU_PA_SAMPLES=1024
-# export QEMU_PA_SAMPLES=8192
-# export QEMU_AUDIO_DRV=pa
-# export PULSE_COOKIE=~/.config/pulse/cookie
-# export QEMU_PA_SOURCE=input
-# export QEMU_PA_SINK=alsa_output.pci-0000_00_1b.0.analog-stereo
-
-### UNCOMMENT to enable alsa
-# export QEMU_AUDIO_DRV=alsa
-# export QEMU_ALSA_DAC_BUFFER_SIZE=2048
-# export QEMU_ALSA_DAC_PERIOD_SIZE=1024
-# export QEMU_ALSA_ADC_BUFFER_SIZE=2048
-# export QEMU_ALSA_ADC_PERIOD_SIZE=1024
-
-# echo "... QEMU_AUDIO_DRV=$QEMU_AUDIO_DRV"
-# echo "... PULSE_COOKIE=$PULSE_COOKIE"
-# echo "... QEMU_PA_SAMPLES=$QEMU_PA_SAMPLES"
-# echo "... QEMU_PA_SINK=$QEMU_PA_SINK"
-# echo "... QEMU_PA_SOURCE=$QEMU_PA_SOURCE"
-# echo "... QEMU_ALSA_DAC_BUFFER_SIZE=$QEMU_ALSA_DAC_BUFFER_SIZE"
-# echo "... QEMU_ALSA_DAC_PERIOD_SIZE=$QEMU_ALSA_DAC_PERIOD_SIZE"
-
 export QEMU_PA_FRAGSIZE=256
-
 echo "... QEMU_PA_FRAGSIZE=$QEMU_PA_FRAGSIZE"
 
 echo "... sleeping 2s to avoid enter key getting grabbed"
