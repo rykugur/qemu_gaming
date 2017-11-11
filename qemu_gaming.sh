@@ -11,6 +11,13 @@
   # -usb -usbdevice host:045e:028e \
 # 046d:c332 - proteus mouse
   # -usb -usbdevice host:046d:c332 \
+# 2516:003c - coolermaster kb
+  # -usb -usbdevice host:2516:003c \
+
+# export QEMU_AUDIO_TIMER_PERIOD=100
+# export QEMU_PA_INT_BUF_SIZE=960
+# export QEMU_PA_TLENGTH=1440
+# export QEMU_PA_ADJUST_LATENCY_OUT=1
 
 export QEMU_PA_FRAGSIZE=256
 echo "... QEMU_PA_FRAGSIZE=$QEMU_PA_FRAGSIZE"
@@ -22,7 +29,7 @@ cp /usr/share/edk2.git/ovmf-x64/OVMF_VARS-pure-efi.fd /tmp/my_vars.fd
 echo "Starting VM ..."
 # qemu-system-x86_64 -enable-kvm \
 /home/dusty/gits/qemu/build/x86_64-softmmu/qemu-system-x86_64 -enable-kvm \
-  -soundhw hda \
+  -soundhw ac97 \
   -smp 4,sockets=1,cores=4,threads=1 \
   -cpu host,kvm=off \
   -m 16384 \
@@ -30,8 +37,12 @@ echo "Starting VM ..."
   -rtc base=localtime \
   -device vfio-pci,host=01:00.0,multifunction=on \
   -device vfio-pci,host=01:00.1 \
-  -object input-linux,id=kbd2,evdev=/dev/input/by-id/usb-Cooler_Master_Technology_Inc._MASTERKEYS_PRO_S_with_intelligent_RGB-if02-event-kbd,grab_all=on,repeat=on \
-  -usb -usbdevice host:046d:c332 \
+  -object input-linux,id=mouse1,evdev=/dev/input/by-id/usb-Logitech_Gaming_Mouse_G502_107B357D3130-event-mouse \
+  -object input-linux,id=mouse2,evdev=/dev/input/by-id/usb-Logitech_Gaming_Mouse_G502_107B357D3130-if01-event-kbd \
+  -object input-linux,id=kbd1,evdev=/dev/input/by-id/usb-Cooler_Master_Technology_Inc._MASTERKEYS_PRO_S_with_intelligent_RGB-event-kbd,grab_all=on,repeat=on \
+  -object input-linux,id=kbd2,evdev=/dev/input/by-id/usb-Cooler_Master_Technology_Inc._MASTERKEYS_PRO_S_with_intelligent_RGB-if02-event-kbd \
+  -device virtio-mouse-pci \
+  -device virtio-keyboard-pci \
   -usb -usbdevice host:045e:028e \
   -drive if=pflash,format=raw,readonly,file=/usr/share/edk2.git/ovmf-x64/OVMF_CODE-pure-efi.fd \
   -drive if=pflash,format=raw,file=/tmp/my_vars.fd \
